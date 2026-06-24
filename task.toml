@@ -1,0 +1,27 @@
+artifacts = ["/app/report.json"]
+
+[task]
+name = "dynamo/log-report"
+description = "Parse an Apache-style access log and write a JSON summary report."
+
+[verifier]
+timeout_sec = 120.0
+
+[agent]
+timeout_sec = 120.0
+
+[metadata]
+category = "data_processing_and_etl"
+subcategory = "text_processing"
+task_objective = "transform"
+artifact_type = "generated_output_artifact"
+expert_time_estimate_hours = 0.3
+model_tested = "gpt_5_4"
+agent_tested = "terminus_2"
+difficulty_explanation = "The task is straightforward but still requires the agent to parse Apache-style log lines, aggregate counts, handle the exact requested schema, and write the expected JSON artifact."
+solution_explanation = "The solution reads /app/access.log, counts non-blank log entries, tracks distinct client IP addresses, counts request paths from quoted HTTP requests, breaks path-count ties alphabetically, and writes /app/report.json."
+verification_explanation = "The verifier loads /app/report.json as JSON and checks the exact schema and computed values for total_requests, unique_ips, and top_path."
+
+[environment]
+allow_internet = false
+mcp_servers = []
